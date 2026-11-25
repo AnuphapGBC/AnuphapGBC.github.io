@@ -12,7 +12,9 @@ Personal portfolio site for **Anuphap "Pek" Chansatit**, an Automation Engineer 
 
 ## Featured work
 
+- [DoneKite](https://github.com/AnuphapGBC/Donekite) · [Interactive demo](https://donekite.vercel.app/demo)
 - [SFMC Student Recruitment Journey Simulator](https://github.com/AnuphapGBC/SFMC-Student-Recruitment-Journey-Simulator)
+- [Verbal](https://github.com/AnuphapGBC/verbal) · [Live site](https://verbal-fawn.vercel.app/)
 - [Immigrant Paperwork Helper](https://github.com/AnuphapGBC/Immigrant-Paperwork-Helper)
 - [Invoice Management Web App — Frontend](https://github.com/AnuphapGBC/Invoice-Management-Web-App-Frontend)
 - [Invoice Management Web App — Backend](https://github.com/AnuphapGBC/Invoice-Management-Web-App-Backend)

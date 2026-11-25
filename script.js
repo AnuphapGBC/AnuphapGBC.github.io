@@ -1,39 +1,36 @@
-const navToggle = document.querySelector(".nav-toggle");
-const navLinks = document.querySelector(".nav-links");
+const menuToggle = document.querySelector(".nav-toggle");
+const navigation = document.getElementById("nav-links");
 
-if (navToggle && navLinks) {
-  navToggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
-    navToggle.setAttribute("aria-expanded", String(isOpen));
+if (menuToggle && navigation) {
+  const mobileLayout = window.matchMedia("(max-width: 680px)");
+  const isMenuOpen = () => menuToggle.getAttribute("aria-expanded") === "true";
+  const setMenuOpen = (open) => menuToggle.setAttribute("aria-expanded", String(open));
+
+  menuToggle.addEventListener("click", () => setMenuOpen(!isMenuOpen()));
+
+  navigation.addEventListener("click", (event) => {
+    const link = event.target.closest('a[href^="#"]');
+
+    if (!link || !mobileLayout.matches || !isMenuOpen()) return;
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+
+    setMenuOpen(false);
+    const destination = document.getElementById(link.hash.slice(1));
+    destination?.focus({ preventScroll: true });
   });
 
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("open");
-      navToggle.setAttribute("aria-expanded", "false");
-    });
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !mobileLayout.matches || !isMenuOpen()) return;
+
+    setMenuOpen(false);
+    menuToggle.focus();
   });
+
+  mobileLayout.addEventListener("change", () => setMenuOpen(false));
+
+  document.documentElement.classList.add("has-menu-toggle");
+  menuToggle.hidden = false;
 }
 
-document.getElementById("year").textContent = new Date().getFullYear();
-
-const reveals = document.querySelectorAll(".reveal");
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-if (reducedMotion || !("IntersectionObserver" in window)) {
-  reveals.forEach((el) => el.classList.add("visible"));
-} else {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
-
-  reveals.forEach((el) => observer.observe(el));
-}
+const copyrightYear = document.getElementById("year");
+if (copyrightYear) copyrightYear.textContent = new Date().getFullYear();
